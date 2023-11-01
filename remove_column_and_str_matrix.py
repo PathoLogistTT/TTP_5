@@ -1,36 +1,34 @@
 
-# удаления строки и столбца из исходной матрицы
-def remove_row_column():
+def remove_row_column(matrix, row, column):
     pass
 
-# вычисление определителя матрицы
-def calculate_determinant():
+def calculate_determinant(matrix):
     pass
 
-# вывод матрицы на экран
-def print_matrix():
-    pass
+def print_matrix(matrix):
+    # Вывод матрицы
+    for row in matrix:
+        print(' '.join([str(element) for element in row]))
 
-# Подменю ввода матрицы
-def sub_switch(option):
+def sub_switch(option, matrix, size):
     if option == '1':
         # Ввод данных вручную
         matrix = []
-        print("Данные введены вручную")
+        for i in range(size):
+            row = input(f"Введите элементы {i + 1}-й строки через пробел:").split()
+            matrix.append([int(element) for element in row])
         return matrix
 
     elif option == '2':
         # Генерация случайной матрицы
         matrix = []
-        print("Данные сгенерированы")
         return matrix
 
     elif option == '3':
-        # Выход в главное меню
-        pass
+        return matrix
     else:
         print("\nНекорректный выбор")
-
+        return matrix
 
 def main():
     matrix = None
@@ -53,27 +51,34 @@ def main():
                 print("3. Вернуться в меню")
                 sub_menu_option = str(input("Введите число от 1 до 3: "))
                 size = int(input("Введите размер квадратной матрицы: "))
-                matrix = sub_switch(sub_menu_option)
+                matrix = sub_switch(sub_menu_option, matrix, size)
 
         elif option == '2':
             if matrix is not None:
                 # Ввод номера строки и столбца для удаления
                 while True:
-                    row_number = int(input("Введите номер строки для удаления: "))
-                    column_number = int(input("Введите номер столбца для удаления: "))
-                    break
-                matrix = []
+                    try:
+                        # Удаление строки и столбца
+                        row_number = int(input("Введите номер строки для удаления: "))
+                        column_number = int(input("Введите номер столбца для удаления: "))
+                        break
+                    except ValueError as a:
+                        # Если введён некорректный символ
+                        print("Введён неккоректный символ, повтори попытку!")
+                matrix = remove_row_column(matrix, row_number - 1, column_number - 1)
                 matrix_point = True
-                determinant = 0
+                # Вычисление определителя
+                determinant = calculate_determinant(matrix)
                 console = input("Нажмите Enter, чтобы продолжить")
             else:
                 print("\nИсходные данные не введены")
 
         elif option == '3':
             if matrix is not None and matrix_point == True:
+                # Вывод результата
                 print("\nМатрица без удаленной строки и столбца:")
-                print_matrix()
-                print("Определитель матрицы:")
+                print_matrix(matrix)
+                print("Определитель матрицы:", int(determinant))
                 matrix_point = False
                 console = input("Нажмите Enter, чтобы продолжить")
             else:
