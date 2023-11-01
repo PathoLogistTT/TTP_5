@@ -1,9 +1,16 @@
+import numpy as np
 
 def remove_row_column(matrix, row, column):
+    # Удаление строки с номером строки из матрицы
+    matrix = np.delete(matrix, row, axis=0)
+    # Удаление столбца с номером столбца из матрицы
+    matrix = np.delete(matrix, column, axis=1)
     return matrix
 
 def calculate_determinant(matrix):
-    return matrix
+    # Вычисление определителя матрицы
+    determinant = np.linalg.det(matrix)
+    return determinant
 
 def print_matrix(matrix):
     # Вывод матрицы
@@ -21,7 +28,9 @@ def sub_switch(option, matrix, size):
 
     elif option == '2':
         # Генерация случайной матрицы
-        matrix = []
+        matrix = np.random.randint(-10, 10, size=(size, size))
+        print("Сгенерированная матрица:")
+        print_matrix(matrix)
         return matrix
 
     elif option == '3':
