@@ -1,9 +1,9 @@
 
 def remove_row_column(matrix, row, column):
-    pass
+    return matrix
 
 def calculate_determinant(matrix):
-    pass
+    return matrix
 
 def print_matrix(matrix):
     # Вывод матрицы
